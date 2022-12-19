@@ -17,6 +17,9 @@ public class PlaceController {
     @Autowired
     PlaceService placeService;
 
+    @Autowired
+    PlaceMapper placeMapper;
+
     @PostMapping("/page")
     public Result page(@RequestBody DataPage placePage){
         return Result.success(placeService.page(placePage));
@@ -31,4 +34,9 @@ public class PlaceController {
     public Result upd(@RequestBody Place place){
         return Result.success(placeService.upd(place));
     }
+    @RequestMapping("/getData")
+    public Result getData(){
+        return Result.success(placeMapper.selectList(null));
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.dzy.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
@@ -9,7 +10,9 @@ public class DeviceItem {
   private long deviceCate;
   private long installStatus;
   private long installLocation;
+  @JsonFormat(timezone = "GMT+8",pattern = "yyyy年MM月dd日 HH:mm")
   private java.sql.Timestamp installTime;
+  @JsonFormat(timezone = "GMT+8",pattern = "yyyy年MM月dd日 HH:mm")
   private java.sql.Timestamp endTime;
 
 
