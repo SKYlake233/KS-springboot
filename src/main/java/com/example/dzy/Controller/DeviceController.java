@@ -3,6 +3,7 @@ package com.example.dzy.Controller;
 import com.example.dzy.Common.DataPage;
 import com.example.dzy.Common.Result;
 import com.example.dzy.Entity.DeviceInfo;
+import com.example.dzy.Mapper.DeviceMapper;
 import com.example.dzy.Service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class DeviceController {
     @Autowired
     DeviceService deviceService;
 
+    @Autowired
+    DeviceMapper deviceMapper;
+
     @PostMapping("/page")
     public Result page(@RequestBody DataPage itemPage){
         return Result.success(deviceService.page(itemPage));
@@ -30,5 +34,10 @@ public class DeviceController {
     @PostMapping("/upd")
     public Result upd(@RequestBody DeviceInfo deviceInfo){
         return Result.success(deviceService.upd(deviceInfo));
+    }
+
+    @RequestMapping("/getData")
+    public Result getData(){
+        return Result.success(deviceMapper.selectList(null));
     }
 }
