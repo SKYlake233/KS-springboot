@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dzy.Common.DataPage;
 import com.example.dzy.Controller.VO.DeviceItemVO;
+import com.example.dzy.Controller.VO.MapInfo;
+import com.example.dzy.Controller.VO.MapInfoVO;
+import com.example.dzy.Controller.VO.device;
 import com.example.dzy.Entity.DeviceInfo;
 import com.example.dzy.Entity.DeviceItem;
 import com.example.dzy.Mapper.DeviceItemMapper;
@@ -14,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 @Service
 public class DeviceItemService {
@@ -81,5 +82,28 @@ public class DeviceItemService {
             Timestamp time1 = new Timestamp(c.getTimeInMillis());
             deviceItem.setEndTime(time1);
         }
+    }
+
+    public List<MapInfoVO> getMapInfo() {
+        List<MapInfo> res = deviceItemMapper.getMapInfo();
+        MapInfoVO resItemVO = null;
+        List<MapInfoVO> retVO = new ArrayList<>();
+        String tmp = "";
+        for (int i = 0; i < res.size(); i++) {
+            if(!res.get(i).getPlaceName().equals(tmp)){
+                tmp = res.get(i).getPlaceName();
+                resItemVO = new MapInfoVO();
+                retVO.add(resItemVO);
+                resItemVO.setPlaceName(res.get(i).getPlaceName());
+                resItemVO.setLatitude(res.get(i).getLatitude());
+                resItemVO.setLongitude(res.get(i).getLongitude());
+                resItemVO.setDeviceInfo(new ArrayList<>());
+                resItemVO.getDeviceInfo().add(new device(res.get(i).getId() , res.get(i).getDeviceName()));
+            }
+            else{
+                resItemVO.getDeviceInfo().add(new device(res.get(i).getId() , res.get(i).getDeviceName()));
+            }
+        }
+        return retVO;
     }
 }

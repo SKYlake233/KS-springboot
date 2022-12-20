@@ -38,4 +38,9 @@ public class DeviceItemController {
         deviceItemService.modify(itemId , itemId);
         return Result.success();
     }
+
+    @RequestMapping("/mapInfo")
+    public Result getMapInfo(){
+        return Result.success(deviceItemService.getMapInfo());
+    }
 }
