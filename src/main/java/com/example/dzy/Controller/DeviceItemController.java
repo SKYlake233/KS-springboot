@@ -6,6 +6,7 @@ import com.example.dzy.Entity.DeviceItem;
 import com.example.dzy.Entity.Place;
 import com.example.dzy.Service.DeviceItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -29,5 +30,12 @@ public class DeviceItemController {
     @PostMapping("/upd")
     public Result upd(@RequestBody DeviceItem deviceItem){
         return Result.success(deviceItemService.upd(deviceItem));
+    }
+
+    @Transactional
+    @RequestMapping("/modify/{itemId}/{placeId}")
+    public Result modify(@PathVariable("itemId") int itemId,@PathVariable("placeId") int placeID){
+        deviceItemService.modify(itemId , itemId);
+        return Result.success();
     }
 }

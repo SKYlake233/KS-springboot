@@ -1,15 +1,21 @@
 package com.example.dzy.Service;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dzy.Common.DataPage;
-import com.example.dzy.Common.Result;
+import com.example.dzy.Controller.VO.DeviceItemVO;
 import com.example.dzy.Entity.DeviceInfo;
 import com.example.dzy.Entity.DeviceItem;
 import com.example.dzy.Mapper.DeviceItemMapper;
+import com.example.dzy.Mapper.DeviceMapper;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 @Service
@@ -18,17 +24,23 @@ public class DeviceItemService {
     @Autowired
     DeviceItemMapper deviceItemMapper;
 
+    @Autowired
+    DeviceMapper deviceMapper;
+
     public HashMap<String, Object> page(DataPage dataPage) {
         String search = "";
         if(dataPage.getParam().containsKey("search"))
             search = (String) dataPage.getParam().get("search");
-        Page<DeviceItem> page = new Page<DeviceItem>();
+        Page<DeviceItemVO> page = new Page<DeviceItemVO>();
+
         page.setCurrent(dataPage.getPageNum());
         page.setSize(dataPage.getPageSize());
-        QueryWrapper<DeviceItem> deviceItemQueryWrapper = new QueryWrapper<DeviceItem>().like("id",search);
+        QueryWrapper<DeviceItemVO> deviceItemQueryWrapper = new QueryWrapper<DeviceItemVO>().like("id",search);
+
         HashMap<String , Object> map = new HashMap<String, Object>();
-        map.put("total",deviceItemMapper.selectPage(page , deviceItemQueryWrapper).getTotal());
-        map.put("data",deviceItemMapper.selectPage(page , deviceItemQueryWrapper).getRecords());
+
+        map.put("total",deviceItemMapper.getDeviceItemVO(page , deviceItemQueryWrapper).size());
+        map.put("data",deviceItemMapper.getDeviceItemVO(page , deviceItemQueryWrapper));
         return map;
     }
 
@@ -41,4 +53,33 @@ public class DeviceItemService {
     }
 
 
+    public void modify(int itemId, int placeId) {
+        DeviceItem deviceItem = deviceItemMapper.selectById(itemId);
+        //先check是否已经安装
+        checkInstall(deviceItem);
+        // 然后再更改地方place
+        modifyPlace(deviceItem , placeId);
+        deviceItemMapper.updateById(deviceItem);
+    }
+
+    private void modifyPlace(DeviceItem deviceItem, int placeId) {
+        deviceItem.setInstallLocation(placeId);
+    }
+
+    private void checkInstall(DeviceItem deviceItem) {
+        //如果未安装  计算安装日期   之前的总数减一
+        if(deviceItem.getInstallStatus() == 0){
+            //获得设备的使用年限  然后设置
+            int off = deviceMapper.getLife(deviceItem.getDeviceCate());
+            deviceItem.setInstallStatus(1);
+            Timestamp timestamp0  = new Timestamp(System.currentTimeMillis());
+            Calendar c = Calendar.getInstance();
+            c.setTime(timestamp0);
+            c.add(Calendar.YEAR, off);  //  加一  天
+            //c.add(Calendar.MONTH, 1); //  加一个月
+            //c.add(Calendar.YEAR,1);   //  加一  年
+            Timestamp time1 = new Timestamp(c.getTimeInMillis());
+            deviceItem.setEndTime(time1);
+        }
+    }
 }
