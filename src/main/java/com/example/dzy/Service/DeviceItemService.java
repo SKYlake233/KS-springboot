@@ -36,7 +36,7 @@ public class DeviceItemService {
 
         page.setCurrent(dataPage.getPageNum());
         page.setSize(dataPage.getPageSize());
-        QueryWrapper<DeviceItemVO> deviceItemQueryWrapper = new QueryWrapper<DeviceItemVO>().like("id",search);
+        QueryWrapper<DeviceItemVO> deviceItemQueryWrapper = new QueryWrapper<DeviceItemVO>().like("device_item.id",search);
 
         HashMap<String , Object> map = new HashMap<String, Object>();
 
