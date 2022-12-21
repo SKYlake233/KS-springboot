@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.dzy.Controller.VO.DeviceItemVO;
 import com.example.dzy.Controller.VO.MapInfo;
 import com.example.dzy.Entity.DeviceItem;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -22,4 +23,6 @@ public interface DeviceItemMapper extends BaseMapper<DeviceItem> {
     @Select("SELECT place.place_name,place.longitude,place.latitude,device_item.id,device_info.device_name FROM place,device_info,device_item WHERE place.id = device_item.install_location AND device_item.device_cate = device_info.id")
     List<MapInfo> getMapInfo();
 
+    @Insert("INSERT INTO device_item(device_cate) VALUES(#{device_cate})")
+    void insertItem(@Param("device_cate") int insertData);
 }

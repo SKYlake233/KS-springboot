@@ -3,7 +3,10 @@ package com.example.dzy.Controller;
 import com.example.dzy.Common.DataPage;
 import com.example.dzy.Common.Result;
 import com.example.dzy.Entity.DeviceInfo;
+import com.example.dzy.Entity.DeviceItem;
+import com.example.dzy.Mapper.DeviceItemMapper;
 import com.example.dzy.Mapper.DeviceMapper;
+import com.example.dzy.Service.DeviceItemService;
 import com.example.dzy.Service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,10 @@ public class DeviceController {
 
     @Autowired
     DeviceMapper deviceMapper;
+
+    @Autowired
+    DeviceItemMapper deviceItemMapper;
+
 
     @PostMapping("/page")
     public Result page(@RequestBody DataPage itemPage){
@@ -39,5 +46,19 @@ public class DeviceController {
     @RequestMapping("/getData")
     public Result getData(){
         return Result.success(deviceMapper.selectList(null));
+    }
+
+    @RequestMapping("/addItem/{deviceId}/{insertData}")
+    public Result addItem(@PathVariable("deviceId") int deviceId,@PathVariable("insertData") int insertData){
+        deviceService.addItem(deviceId,insertData);
+        for (int i  = 0 ; i < insertData ; i++){
+            DeviceItem deviceItem = new DeviceItem();
+            deviceItem.setDeviceCate(deviceId);
+            deviceItem.setId(null);
+            deviceItem.setInstallStatus(0);
+            deviceItem.setInstallLocation(null);
+            deviceItemMapper.insert(deviceItem);
+        }
+        return Result.success();
     }
 }

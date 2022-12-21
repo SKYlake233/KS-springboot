@@ -1,6 +1,7 @@
 package com.example.dzy.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dzy.Common.DataPage;
 import com.example.dzy.Entity.DeviceInfo;
@@ -36,5 +37,12 @@ public class DeviceService {
 
     public int upd(DeviceInfo deviceInfo) {
         return deviceMapper.updateById(deviceInfo);
+    }
+
+    public void addItem(int deviceId, int insertData) {
+        UpdateWrapper<DeviceInfo> deviceInfoUpdateWrapper = new UpdateWrapper<>();
+        deviceInfoUpdateWrapper.eq("id",deviceId);
+        deviceInfoUpdateWrapper.setSql(" device_left = device_left + " + insertData);
+        deviceMapper.update(null,deviceInfoUpdateWrapper);
     }
 }

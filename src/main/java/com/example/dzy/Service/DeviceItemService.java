@@ -70,6 +70,7 @@ public class DeviceItemService {
     private void checkInstall(DeviceItem deviceItem) {
         //如果未安装  计算安装日期   之前的总数减一
         if(deviceItem.getInstallStatus() == 0){
+            deviceItem.setInstallTime(new Timestamp(System.currentTimeMillis()));
             //获得设备的使用年限  然后设置
             int off = deviceMapper.getLife(deviceItem.getDeviceCate());
             deviceItem.setInstallStatus(1);

@@ -35,7 +35,7 @@ public class DeviceItemController {
     @Transactional
     @RequestMapping("/modify/{itemId}/{placeId}")
     public Result modify(@PathVariable("itemId") int itemId,@PathVariable("placeId") int placeID){
-        deviceItemService.modify(itemId , itemId);
+        deviceItemService.modify(itemId , placeID);
         return Result.success();
     }
 
