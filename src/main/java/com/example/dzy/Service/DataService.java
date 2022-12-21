@@ -46,17 +46,17 @@ public class DataService {
         java.util.List<DeviceItemVO> res =deviceItemMapper.getDeviceItemVO(null , new QueryWrapper<DeviceItemVO>().eq("device_item.id",data.getCollectDevice()));
         data.setCollectLocation(res.get(0).getInstallLocation());
         String alarmData = "";
-        if (data.getTemperature() > alarmRule.getTemperatrue())
+        if (data.getTemperature() != null && data.getTemperature() > alarmRule.getTemperatrue())
             alarmData += "温度超标，数值为" + data.getTemperature();
-        if (data.getHumidity() > alarmRule.getHumidity())
+        if (data.getHumidity() != null && data.getHumidity() > alarmRule.getHumidity())
             alarmData += "   湿度超标，数值为" + data.getHumidity();
-        if (data.getPm25() > alarmRule.getPm25())
+        if (data.getPm25() != null && data.getPm25() > alarmRule.getPm25())
             alarmData += "   pm2.5超标，数值为" + data.getPm25();
-        if (data.getCo() > alarmRule.getCo())
+        if (data.getCo() != null && data.getCo() > alarmRule.getCo())
             alarmData += "   CO超标，数值为" + data.getCo();
-        if (data.getNo2() > alarmRule.getNo2())
+        if (data.getNo2() != null && data.getNo2() > alarmRule.getNo2())
             alarmData += "   NO2超标，数值为" + data.getNo2();
-        if (data.getSo2() > alarmRule.getSo2())
+        if (data.getSo2() != null && data.getSo2() > alarmRule.getSo2())
             alarmData += "   SO2超标，数值为" + data.getSo2();
         if(!alarmData.equals("")){
             String time_t ="当前时间" + DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");

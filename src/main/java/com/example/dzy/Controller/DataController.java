@@ -25,7 +25,6 @@ public class DataController {
     @PostMapping("/upload")
     @Transactional
     public Result upload(@RequestBody Data data){
-        System.out.println(data.toString());
         data.setCollectTime(new Timestamp(System.currentTimeMillis()));
         dataService.check(data);
         dataService.upload(data);

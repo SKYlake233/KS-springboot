@@ -7,10 +7,10 @@ public class Data {
   private long collectDevice;
   private long collectLocation;
   private java.sql.Timestamp collectTime;
-  private double temperature;
-  private double humidity;
-  private int pm25;
-  private double co;
-  private int no2;
-  private int so2;
+  private Double temperature;
+  private Double humidity;
+  private Integer pm25;
+  private Double co;
+  private Integer no2;
+  private Integer so2;
 }
