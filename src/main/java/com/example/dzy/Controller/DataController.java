@@ -4,6 +4,7 @@ import com.example.dzy.Common.Result;
 import com.example.dzy.Entity.Alarm;
 import com.example.dzy.Entity.Data;
 import com.example.dzy.Mapper.AlarmMapper;
+import com.example.dzy.Mapper.DataMapper;
 import com.example.dzy.Service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,9 @@ public class DataController {
 
     @Autowired
     DataService dataService;
+
+    @Autowired
+    DataMapper dataMapper;
 
     @Autowired
     AlarmMapper alarmMapper;
@@ -41,5 +45,10 @@ public class DataController {
         alarm.setIsRead(1);
         alarmMapper.updateById(alarm);
         return Result.success();
+    }
+
+    @RequestMapping("/latestData")
+    public Result getLatestData(){
+        return Result.success(dataMapper.getLatestDataVO());
     }
 }
