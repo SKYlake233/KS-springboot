@@ -9,27 +9,24 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.dzy.Common.Constants;
 import com.example.dzy.Common.Exception.UserException;
+import com.example.dzy.Entity.AdminUser;
 import com.example.dzy.Entity.User;
-import com.example.dzy.Mapper.UserMapper;
-import com.example.dzy.Service.UserService;
+import com.example.dzy.Mapper.AdminUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtInterceptor implements HandlerInterceptor {
+public class AdminJwtInterceptor implements HandlerInterceptor {
 
     @Autowired
-    UserMapper userMapper;
+    AdminUserMapper adminUserMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
@@ -49,7 +46,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
 
         //获得用户对象userQueryWrapper.eq("user_name" , user.getUserName())
-        User user = userMapper.selectOne(new QueryWrapper<User>().eq("user_name" , userName));
+        AdminUser user = adminUserMapper.selectOne(new QueryWrapper<AdminUser>().eq("user_name" , userName));
 
         if(user == null)
             throw new UserException(Constants.CODE_401,"用户不存在");
@@ -63,4 +60,5 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
         return true;
     }
+
 }

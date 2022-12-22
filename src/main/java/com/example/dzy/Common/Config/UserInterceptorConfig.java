@@ -1,5 +1,6 @@
 package com.example.dzy.Common.Config;
 
+import com.example.dzy.Common.interceptor.AdminJwtInterceptor;
 import com.example.dzy.Common.interceptor.JwtInterceptor;
 import com.example.dzy.Entity.AlarmRule;
 import com.example.dzy.Mapper.AlarmRuleMapper;
@@ -21,10 +22,19 @@ public class UserInterceptorConfig implements WebMvcConfigurer {
         //拦截所有请求  登录注册除外
         registry.addInterceptor(JwtInterceptor()).addPathPatterns("/user/data")
                 .excludePathPatterns("/user/login","/user/register","/admin/login");
+
+        registry.addInterceptor(AdminJwtInterceptor())
+                .addPathPatterns("/admin/data")
+                .excludePathPatterns("/user/login","/user/register","/admin/login");
     }
 
     @Bean
     public JwtInterceptor JwtInterceptor(){
         return new JwtInterceptor();
+    }
+
+    @Bean
+    public AdminJwtInterceptor AdminJwtInterceptor(){
+        return new AdminJwtInterceptor();
     }
 }

@@ -33,4 +33,9 @@ public class AdminController {
         }
         return Result.success(retAdminUser);
     }
+
+    @RequestMapping("/data")
+    public Result getData(){
+        return Result.success("hello");
+    }
 }
