@@ -60,6 +60,7 @@ public class DeviceItemService {
         checkInstall(deviceItem);
         // 然后再更改地方place
         modifyPlace(deviceItem , placeId);
+        deviceMapper.modify(deviceItem.getDeviceCate());
         deviceItemMapper.updateById(deviceItem);
     }
 

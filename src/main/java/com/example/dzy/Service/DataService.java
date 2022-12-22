@@ -59,7 +59,7 @@ public class DataService {
         if (data.getSo2() != null && data.getSo2() > alarmRule.getSo2())
             alarmData += "   SO2超标，数值为" + data.getSo2();
         if(!alarmData.equals("")){
-            String time_t ="当前时间" + DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
+            String time_t ="报警时间" + DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
             alarmData = time_t + alarmData;
             Alarm alarm = new Alarm();
             alarm.setDataIndex(alarmData);

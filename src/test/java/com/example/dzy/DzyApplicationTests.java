@@ -23,8 +23,6 @@ class DzyApplicationTests {
 
     @Test
     void contextLoads() {
-        List<DeviceItemVO> res =deviceItemMapper.getDeviceItemVO(null,new QueryWrapper<DeviceItemVO>().eq("device_item.id",1));
-        System.out.println(res);
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.dzy.Common.DataPage;
 import com.example.dzy.Common.Result;
 import com.example.dzy.Entity.DeviceItem;
 import com.example.dzy.Entity.Place;
+import com.example.dzy.Mapper.DeviceMapper;
 import com.example.dzy.Service.DeviceItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,7 @@ public class DeviceItemController {
     @Transactional
     @RequestMapping("/modify/{itemId}/{placeId}")
     public Result modify(@PathVariable("itemId") int itemId,@PathVariable("placeId") int placeID){
+
         deviceItemService.modify(itemId , placeID);
         return Result.success();
     }
