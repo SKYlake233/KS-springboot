@@ -1,16 +1,12 @@
 package com.example.dzy.Entity;
 
-import com.example.dzy.Mapper.AlarmRuleMapper;
-import com.example.dzy.Mapper.DeviceItemMapper;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 
 
 @Data
 public class AlarmRule {
 
-  private double temperatrue;
+  private double temperature;
   private double humidity;
   private double pm25;
   private double co;
@@ -26,12 +22,12 @@ public class AlarmRule {
     return _AlarmRule;
   }
 
-  public double getTemperatrue() {
-    return temperatrue;
+  public double getTemperature() {
+    return temperature;
   }
 
-  public void setTemperatrue(double temperatrue) {
-    this.temperatrue = temperatrue;
+  public void setTemperature(double temperature) {
+    this.temperature = temperature;
   }
 
 

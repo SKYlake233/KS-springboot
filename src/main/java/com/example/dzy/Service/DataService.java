@@ -46,7 +46,7 @@ public class DataService {
         java.util.List<DeviceItemVO> res =deviceItemMapper.getDeviceItemVO(null , new QueryWrapper<DeviceItemVO>().eq("device_item.id",data.getCollectDevice()));
         data.setCollectLocation(res.get(0).getInstallLocation());
         String alarmData = "";
-        if (data.getTemperature() != null && data.getTemperature() > alarmRule.getTemperatrue())
+        if (data.getTemperature() != null && data.getTemperature() > alarmRule.getTemperature())
             alarmData += "温度超标，数值为" + data.getTemperature();
         if (data.getHumidity() != null && data.getHumidity() > alarmRule.getHumidity())
             alarmData += "   湿度超标，数值为" + data.getHumidity();
