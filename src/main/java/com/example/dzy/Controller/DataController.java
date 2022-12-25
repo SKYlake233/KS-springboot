@@ -51,4 +51,10 @@ public class DataController {
     public Result getLatestData(){
         return Result.success(dataMapper.getLatestDataVO());
     }
+
+    @RequestMapping("/history/{place_id}")
+    public Result addItem(@PathVariable("place_id") int place_id){
+
+        return Result.success(dataService.getHistoryWeekData(place_id));
+    }
 }

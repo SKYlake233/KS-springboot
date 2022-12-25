@@ -4,8 +4,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     name: defaultDataSource
-    url: jdbc:mysql://127.0.0.1:3306/ks?serverTimezone=Asia/Shanghai&&characterEncoding=utf8
-    username: root
+    url: jdbc:mysql://182.61.17.49:3306/mlgb?serverTimezone=Asia/Shanghai&&characterEncoding=utf8
+    username: mlgb
     password: qwer9742
 server:
   port: 8080

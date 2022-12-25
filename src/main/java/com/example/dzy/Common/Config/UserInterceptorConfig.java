@@ -23,9 +23,9 @@ public class UserInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(JwtInterceptor()).addPathPatterns("/user/data")
                 .excludePathPatterns("/user/login","/user/register","/admin/login");
 
-        registry.addInterceptor(AdminJwtInterceptor())
+        /*registry.addInterceptor(AdminJwtInterceptor())
                 .addPathPatterns("/admin/data")
-                .excludePathPatterns("/user/login","/user/register","/admin/login");
+                .excludePathPatterns("/user/login","/user/register","/admin/login");*/
     }
 
     @Bean

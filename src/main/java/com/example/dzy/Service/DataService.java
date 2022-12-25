@@ -3,6 +3,8 @@ package com.example.dzy.Service;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.dzy.Controller.VO.DeviceItemVO;
+import com.example.dzy.Controller.VO.LastWeekDataVO;
+import com.example.dzy.Controller.VO.LatestDataVO;
 import com.example.dzy.Entity.Alarm;
 import com.example.dzy.Entity.AlarmRule;
 import com.example.dzy.Entity.Data;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DataService {
@@ -66,5 +69,21 @@ public class DataService {
             alarm.setIsRead(0);
             alarmMapper.insert(alarm);
         }
+    }
+
+    public LastWeekDataVO getHistoryWeekData(int place_id) {
+        //先通过mapper返回数据
+        List<LatestDataVO> lastWeekData = dataMapper.getLastWeekDataVO(place_id);
+        LastWeekDataVO lastWeekDataVO = new LastWeekDataVO();
+        lastWeekDataVO.setInstall_location(lastWeekData.get(0).getPlaceName());
+        for (int i = 0 ; i < 7 ; i++){
+            lastWeekDataVO.getTemperature().add(lastWeekData.get(i).getTemperature());
+            lastWeekDataVO.getHumidity().add(lastWeekData.get(i).getHumidity());
+            lastWeekDataVO.getCo().add(lastWeekData.get(i).getCo());
+            lastWeekDataVO.getSo2().add(lastWeekData.get(i).getSo2());
+            lastWeekDataVO.getPm25().add(lastWeekData.get(i).getPm25());
+            lastWeekDataVO.getNo2().add(lastWeekData.get(i).getNo2());
+        }
+        return lastWeekDataVO;
     }
 }
