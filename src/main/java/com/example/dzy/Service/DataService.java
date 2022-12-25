@@ -3,6 +3,7 @@ package com.example.dzy.Service;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.dzy.Controller.VO.DeviceItemVO;
+import com.example.dzy.Controller.VO.LastMonthDataVO;
 import com.example.dzy.Controller.VO.LastWeekDataVO;
 import com.example.dzy.Controller.VO.LatestDataVO;
 import com.example.dzy.Entity.Alarm;
@@ -85,5 +86,21 @@ public class DataService {
             lastWeekDataVO.getNo2().add(lastWeekData.get(i).getNo2());
         }
         return lastWeekDataVO;
+    }
+
+    public LastMonthDataVO getHistoryMonthData(int place_id) {
+        //先通过mapper返回数据
+        List<LatestDataVO> lastMonthData = dataMapper.getLastMonthDataVO(place_id);
+        LastMonthDataVO lastMonthDataVO = new LastMonthDataVO();
+        lastMonthDataVO.setInstall_location(lastMonthData.get(0).getPlaceName());
+        for (int i = 0 ; i < 4 ; i++){
+            lastMonthDataVO.getTemperature().add(lastMonthData.get(i).getTemperature());
+            lastMonthDataVO.getHumidity().add(lastMonthData.get(i).getHumidity());
+            lastMonthDataVO.getCo().add(lastMonthData.get(i).getCo());
+            lastMonthDataVO.getSo2().add(lastMonthData.get(i).getSo2());
+            lastMonthDataVO.getPm25().add(lastMonthData.get(i).getPm25());
+            lastMonthDataVO.getNo2().add(lastMonthData.get(i).getNo2());
+        }
+        return lastMonthDataVO;
     }
 }

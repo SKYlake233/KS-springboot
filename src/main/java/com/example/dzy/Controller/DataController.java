@@ -57,4 +57,9 @@ public class DataController {
 
         return Result.success(dataService.getHistoryWeekData(place_id));
     }
+
+    @RequestMapping("/month/{place_id}")
+    public Result ADDDATA(@PathVariable("place_id") int place_id){
+        return Result.success(dataService.getHistoryMonthData(place_id));
+    }
 }
