@@ -4,6 +4,7 @@ import com.example.dzy.Common.DataPage;
 import com.example.dzy.Common.Result;
 import com.example.dzy.Entity.DeviceItem;
 import com.example.dzy.Entity.Place;
+import com.example.dzy.Mapper.DeviceItemMapper;
 import com.example.dzy.Mapper.DeviceMapper;
 import com.example.dzy.Service.DeviceItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class DeviceItemController {
 
     @Autowired
     DeviceItemService deviceItemService;
+
+    @Autowired
+    DeviceItemMapper deviceItemMapper;
 
     @PostMapping("/page")
     public Result page(@RequestBody DataPage placePage){
@@ -33,6 +37,11 @@ public class DeviceItemController {
         return Result.success(deviceItemService.upd(deviceItem));
     }
 
+    @RequestMapping("/del/{itemId}")
+    public Result del(@PathVariable("itemId") int itemId){
+        deviceItemMapper.deleteById(itemId);
+        return Result.success();
+    }
 
 
     @Transactional
