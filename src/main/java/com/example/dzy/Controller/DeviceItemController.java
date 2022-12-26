@@ -33,6 +33,8 @@ public class DeviceItemController {
         return Result.success(deviceItemService.upd(deviceItem));
     }
 
+
+
     @Transactional
     @RequestMapping("/modify/{itemId}/{placeId}")
     public Result modify(@PathVariable("itemId") int itemId,@PathVariable("placeId") int placeID){
@@ -40,6 +42,8 @@ public class DeviceItemController {
         deviceItemService.modify(itemId , placeID);
         return Result.success();
     }
+
+
 
     @RequestMapping("/mapInfo")
     public Result getMapInfo(){

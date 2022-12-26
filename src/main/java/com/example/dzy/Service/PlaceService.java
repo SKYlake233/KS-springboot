@@ -3,7 +3,6 @@ package com.example.dzy.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dzy.Common.DataPage;
-import com.example.dzy.Entity.DeviceInfo;
 import com.example.dzy.Entity.Place;
 import com.example.dzy.Mapper.PlaceMapper;
 import org.springframework.beans.factory.annotation.Autowired;

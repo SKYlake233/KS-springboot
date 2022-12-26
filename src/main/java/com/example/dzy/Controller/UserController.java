@@ -45,9 +45,11 @@ public class UserController {
     public Result login(@RequestBody UserDTO userDTO){
         String userName = userDTO.getUserName();
         String password = userDTO.getPassWord();
+
         if(StringUtils.isBlank(userName) || StringUtils.isBlank(password)){
             return Result.error(Constants.CODE_400,"参数错误");
         }
+
         User user = new User();
         user.setUserName(userName);
         user.setPassWord(MD5Utils.code(password));

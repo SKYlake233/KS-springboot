@@ -56,6 +56,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         //用户密码  最后验证
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassWord())).build();
+
         try{
             jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {

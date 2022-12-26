@@ -21,9 +21,12 @@ public class DeviceService {
         String search = "";
         if(dataPage.getParam().containsKey("search"))
             search = (String) dataPage.getParam().get("search");
+
+
         Page<DeviceInfo> page = new Page<DeviceInfo>();
         page.setCurrent(dataPage.getPageNum());
         page.setSize(dataPage.getPageSize());
+
         QueryWrapper<DeviceInfo> deviceInfoQueryWrapper = new QueryWrapper<DeviceInfo>().like("device_name",search);
         HashMap<String , Object> map = new HashMap<String, Object>();
         map.put("total",deviceMapper.selectPage(page , deviceInfoQueryWrapper).getTotal());

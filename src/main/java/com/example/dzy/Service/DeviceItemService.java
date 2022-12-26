@@ -32,10 +32,11 @@ public class DeviceItemService {
         String search = "";
         if(dataPage.getParam().containsKey("search"))
             search = (String) dataPage.getParam().get("search");
-        Page<DeviceItemVO> page = new Page<DeviceItemVO>();
 
+        Page<DeviceItemVO> page = new Page<DeviceItemVO>();
         page.setCurrent(dataPage.getPageNum());
         page.setSize(dataPage.getPageSize());
+
         QueryWrapper<DeviceItemVO> deviceItemQueryWrapper = new QueryWrapper<DeviceItemVO>().like("device_item.id",search);
 
         HashMap<String , Object> map = new HashMap<String, Object>();

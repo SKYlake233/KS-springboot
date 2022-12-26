@@ -49,7 +49,9 @@ public class DataService {
         //执行规则    然后将超过的信息组合一个字符串
         java.util.List<DeviceItemVO> res =deviceItemMapper.getDeviceItemVO(null , new QueryWrapper<DeviceItemVO>().eq("device_item.id",data.getCollectDevice()));
         data.setCollectLocation(res.get(0).getInstallLocation());
+
         String alarmData = "";
+
         if (data.getTemperature() != null && data.getTemperature() > alarmRule.getTemperature())
             alarmData += "温度超标，数值为" + data.getTemperature();
         if (data.getHumidity() != null && data.getHumidity() > alarmRule.getHumidity())
@@ -62,6 +64,8 @@ public class DataService {
             alarmData += "   NO2超标，数值为" + data.getNo2();
         if (data.getSo2() != null && data.getSo2() > alarmRule.getSo2())
             alarmData += "   SO2超标，数值为" + data.getSo2();
+
+
         if(!alarmData.equals("")){
             String time_t ="报警时间" + DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
             alarmData = time_t + alarmData;
